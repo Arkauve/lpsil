@@ -1,7 +1,9 @@
 var mysql = require('mysql');
 var logger = require('log4js').getLogger('Server');
 
-exports.connection = function (){
+exports.connection = Connection;
+
+function Connection(){
   var connection = mysql.createConnection({
       host: 'localhost',
       port : '3306',
@@ -11,7 +13,8 @@ exports.connection = function (){
   });
   return connection;
 }
-/*
+
+
 var con = Connection();
 
 con.connect();
@@ -28,4 +31,3 @@ con.query('SELECT * from users', function (err, rows, fields) {
 });
 
 con.end();
-*/

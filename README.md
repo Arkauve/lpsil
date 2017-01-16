@@ -1,7 +1,7 @@
-#### Node JS 
+#### Node JS
 Présentation de la technologie.
 
-[Voir sujet détaillé](http://miageprojet2.unice.fr/User:Max/LPSIL_IDSE_-_Web_Multim%C3%A9dia_%2f%2f_Web_S%C3%A9mantique/Partie_1%3a_Application_Pictionnary). 
+[Voir sujet détaillé](http://miageprojet2.unice.fr/User:Max/LPSIL_IDSE_-_Web_Multim%C3%A9dia_%2f%2f_Web_S%C3%A9mantique/Partie_1%3a_Application_Pictionnary).
 
 Concepts à mettre ne œuvre :
 
@@ -20,7 +20,7 @@ Concepts à mettre ne œuvre :
 * [Serveur MySQL](https://www.mysql.com/downloads/)
 * l'IDE [PHPStorm](https://www.jetbrains.com/phpstorm/) or [Sublime Text](http://www.sublimetext.com/3).
 * Navigateurs récents (il est bon de tester avec différents navigateurs, comme Chrome, Firefox, Opera, IE)
- 
+
 #### Telecharger le projet
 
 [![Github](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png)](https://github.com/kbouzidi/lpsil)
@@ -61,7 +61,7 @@ Créer un fichier package.json dans le dossier de notre projet :
 npm install
 ```
 
-##### Création du serveur 
+##### Création du serveur
 
 ```language-javascript
 var express = require('express');
@@ -84,7 +84,7 @@ logger.info('server start');
 app.listen(1313);
 ```
 
-##### Ajouter les templates 
+##### Ajouter les templates
 
 ```language-javascript
 // config
@@ -92,9 +92,9 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 ```
 
-##### Définition des routes 
+##### Définition des routes
 
-```language-javascript 
+```language-javascript
 /* On affiche le formulaire d'enregistrement */
 
 app.get('/', function(req, res){
@@ -115,7 +115,7 @@ app.get('/register', function (req, res) {
 /* On affiche le profile  */
 app.get('/profile', function (req, res) {
     // TODO  
-    // On redirige vers la login si l'utilisateur n'a pas été authentifier 
+    // On redirige vers la login si l'utilisateur n'a pas été authentifier
     // Afficher le button logout                                                
 });      
 ```
@@ -154,7 +154,7 @@ connection.end();
 	user : '< MySQL username >',
 	password: '< MySQL password >',
         database: '<nom de vôtre base de données>'
-  });	
+  });
 
   pool.getConnection(function(err,connection){
         if (err) {
@@ -164,7 +164,7 @@ connection.end();
         }  
 
         logger.info('connecté en tant que ' + connection.threadId);
-       
+
         connection.query("select * from user",function(err,rows){
             connection.release();
             if(!err) {
@@ -182,20 +182,20 @@ connection.end();
 #### A faire
 
 >    - Implémentation d'un formulaire d'inscription/connexion HTML5
->    - Gestion des sessions [express-session](https://www.npmjs.com/package/express-sessions)
+>    - Gestion des sessions [express-session](https://www.npmjs.com/package/express-session)
 >    - Dashboard utilisateur
 >       - Modification des données utilisateurs
 >       - Suppression du compte
->       - Accès au page après identification 
+>       - Accès au page après identification
 >    - Dashboard Administration
->     - Modification de profile 
->     - Suppression de profile 
+>     - Modification de profile
+>     - Suppression de profile
 >     - Révocation des identifiants
 >   - Intégration de l'application Pictionnary
 >   - Intégration d'un API externe (Facebook, Google et/ou twitter)
 
 
-#### Date de remise 
+#### Date de remise
 
 <code> Le 23/01/2017 à 8h00 CET</code>
 

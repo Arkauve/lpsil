@@ -3,7 +3,13 @@
 
 <h2>Inscrivez-vous</h2>
 
-<form class="inscription" action="req_inscription.ejs" method="post" name="inscription">
+<%if(locals.error) { %>
+<div class="error">
+  <%= locals.error; %>
+</div>
+<% } %>
+
+<form class="inscription" action="/register" method="post" name="inscription">
     <span class="required_notification">Les champs obligatoires sont indiqués par *</span>
     <ul>
         <li>
@@ -43,7 +49,7 @@
         </li>
         <li>
             <label for="tel">tel :</label>
-            <input type="tel" name="tel" id="tel" placeholder="ex : 0101010101" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" <?php if(!empty($_GET["tel"]))echo "value=".$_GET["tel"]; ?>  />
+            <input type="tel" name="tel" id="tel" placeholder="ex : 0101010101" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" />
         </li>
         <li>
             <label for="website">Site Web :</label>
@@ -81,6 +87,19 @@
         <li>
             <label for="age">Age:</label>
             <input type="number" name="age" id="age" disabled/>
+        </li>
+        <li>
+            <label for="ville">Ville:</label>
+            <input type="text" name="ville" id="ville" />
+        </li>
+        <li>
+            <label for="taille">Taille:</label>
+            <input type="range"  max="2.50" min="0" step="0.01" name="taille" id="taille" oninput="tailleValue.value=parseFloat(taille.value)"/>
+            <output name="tailleValue"></output> m
+        </li>
+        <li>
+            <label for="couleur">Couleur préféré:</label>
+            <input type="color" name="couleur" id="couleur" />
         </li>
         <li>
             <label for="profilepicfile">Photo de profil:</label>
