@@ -1,2 +1,71 @@
 <% var title = 'Profile' %>
 <% include head %>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><%=locals.prenom%> <%=locals.nom%> </h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center">
+              <%if(!locals.profilepic) {%>
+                <img alt="User Pic"  src="http://cancerspreventions.fr/wp-content/themes/cancer-et-prevention/skeleton/images/silhouette.jpg" class="img-circle img-responsive">
+              <% } %>
+              <%if(locals.profilepic) {%>
+                <img alt="User Pic"  src="<%=locals.profilepic%>" class="img-circle img-responsive">
+              <% } %>
+            </div>
+            <div class=" col-md-9 col-lg-9 ">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                            <td>Email:</td>
+                            <td><%=locals.email%></td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth</td>
+                            <td><%=locals.birthdate%></td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <%if(locals.sexe == 'H') {%>
+                                <td>Homme</td>
+                            <% } %>
+                            <%if(locals.sexe == "F") {%>
+                                <td>Femme</td>
+                            <% } %>
+                        </tr>
+                        <%if(locals.tel) {%>
+                        </tr>
+                            <td>Phone Number</td>
+                            <td><%=locals.tel %></td>
+                        </tr>
+                        <% } %>
+                        <%if(locals.website) {%>
+                        </tr>
+                            <td>Site web</td>
+                            <td><%=locals.website %></td>
+                        </tr>
+                        <% } %>
+                        <%if(locals.taille) {%>
+                        </tr>
+                            <td>Taille</td>
+                            <td><%=locals.taille %> m</td>
+                        </tr>
+                        <% } %>
+                        <%if(locals.couleur) {%>
+                        </tr>
+                            <td>Couleur</td>
+                            <td><div style="width:8em;;height: 1.5em;border-radius: 5px;background-color:#<%=locals.couleur %>"></div></td>
+                        </tr>
+                        <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+            <a href="/editProfile" class="btn btn-primary">Modifier profile</a>
+            <a href="/logout" class="btn btn-primary">Disconnect</a>
+        </div>
+    </div>
+</div>
+
+<% include foot %>
