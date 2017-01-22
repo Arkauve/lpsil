@@ -9,7 +9,7 @@
 </div>
 <% } %>
 
-<form class="inscription" action="/register" method="post" name="inscription">
+<form class="inscription" action="/editProfile" method="post" name="inscription">
     <span class="required_notification">Les champs obligatoires sont indiqués par *</span>
     <ul>
         <li>
@@ -26,28 +26,6 @@
             <input type="text" name="prenom" id="prenom" placeholder="ex : David" required  <%if(locals.email)%> value="<%=locals.prenom%>"/>
         </li>
         <li>
-            <label for="mdp1">Mot de passe :</label>
-            <input required placeholder="azerty1" type="password" name="password" id="mdp1" pattern="^([a-zA-Z0-9]{6,8})$" onkeyup="validateMdp2()" title = "Le mot de passe doit contenir de 6 à 8 caractères alphanumériques.">
-
-            <span class="form_hint">De 6 à 8 caractères alphanumériques.</span>
-        </li>
-        <li>
-            <label for="mdp2">Confirmez mot de passe :</label>
-            <input required type="password" id="mdp2" required onkeyup="validateMdp2()">
-            <span class="form_hint">Les mots de passes doivent être égaux.</span>
-            <script>
-              validateMdp2 = function(e) {
-                  var mdp1 = document.getElementById('mdp1');
-                  var mdp2 = document.getElementById('mdp2');
-                  if (/^([a-zA-Z0-9]+)$/.test(mdp1.value) && mdp1.value == mdp2.value){
-                      document.getElementById('mdp2').setCustomValidity('');
-                  } else {
-                      document.getElementById('mdp2').setCustomValidity('Les mots de passes doivent être égaux.');
-                  }
-              }
-          </script>
-        </li>
-        <li>
             <label for="tel">tel :</label>
             <input type="tel" name="tel" id="tel" placeholder="ex : 0101010101" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" <%if(locals.email)%> value="<%=locals.tel%>"/>
         </li>
@@ -62,7 +40,7 @@
         </li>
         <li>
             <label for="birthdate">Date de naissance:</label>
-            <input type="date" name="birthdate" id="birthdate" placeholder="JJ/MM/AAAA" required onchange="computeAge()" <%if(locals.birthdate)%> value="<%=locals.birthdate%>"/>
+            <input type="date" name="birthdate" id="birthdate" placeholder="JJ/MM/AAAA" value="<%=locals.birthdate%>" required onchange="computeAge()" <%if(locals.birthdate)%> value="<%=locals.birthdate%>"/>
             <script>
               computeAge = function(e) {
               try{
@@ -86,7 +64,7 @@
         </li>
         <li>
             <label for="age">Age:</label>
-            <input type="number" name="age" id="age" disabled <%if(locals.age)%> value="<%=locals.age%>"/>
+            <input type="number" name="age" id="age" disabled <%if(locals.age)%> />
         </li>
         <li>
             <label for="ville">Ville:</label>
@@ -99,11 +77,11 @@
         </li>
         <li>
             <label for="couleur">Couleur préféré:</label>
-            <input type="color" name="couleur" id="couleur" <%if(locals.couleur)%> value="<%=locals.couleur%>"/>
+            <input type="color" name="couleur" id="couleur" <%if(locals.couleur)%> value="#<%=locals.couleur%>"/>
         </li>
         <li>
             <label for="profilepicfile">Photo de profil:</label>
-              <input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
+              <input type="file" id="profilepicfile" onchange="loadProfilePic(this)" value="<%=locals.profilepic%>"/>
               <span class="form_hint">Choisissez une image.</span>
               <input type="hidden" name="profilepic" id="profilepic"/>
               <canvas id="preview" width="0" height="0"></canvas>

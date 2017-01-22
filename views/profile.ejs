@@ -46,6 +46,12 @@
                             <td><%=locals.website %></td>
                         </tr>
                         <% } %>
+                        <%if(locals.ville) {%>
+                        </tr>
+                            <td>Ville</td>
+                            <td><%=locals.ville %> m</td>
+                        </tr>
+                        <% } %>
                         <%if(locals.taille) {%>
                         </tr>
                             <td>Taille</td>
