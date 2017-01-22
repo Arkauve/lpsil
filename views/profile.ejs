@@ -1,5 +1,12 @@
 <% var title = 'Profile' %>
 <% include head %>
+
+<%if(locals.error) { %>
+<div class="error">
+  <%= locals.error; %>
+</div>
+<% } %>
+
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title"><%=locals.prenom%> <%=locals.nom%> </h3>
@@ -49,7 +56,7 @@
                         <%if(locals.ville) {%>
                         </tr>
                             <td>Ville</td>
-                            <td><%=locals.ville %> m</td>
+                            <td><%=locals.ville %></td>
                         </tr>
                         <% } %>
                         <%if(locals.taille) {%>
@@ -70,11 +77,36 @@
                 <div class="pull-right">
                   <a href="/paint" class="btn btn-success">Peindre</a>
                   <a href="/editProfile" class="btn btn-primary">Modifier profile</a>
-                  <a href="/logout" class="btn btn-primary">Disconnect</a>
+                  <a href="/logout" class="btn btn-danger">Disconnect</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Dessins</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12 ">
+              <%if(locals.pictures.length>0) {%>
+                <ul>
+                <%var i=1;
+                 locals.pictures.forEach(function(picture) { %>
+                    <li><a href="guess?idPicture=<%= picture.d_id %>">Dessin n°<%= i %></a> - <img alt="dessin_<%= picture.d_id %>"  src="<%=picture.d_image%>" class="img-responsive"></li>
+                <% i++;
+                }); %>
+                </ul>
+              <% } else { %>
+                Vous n avez aucun dessin
+              <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <% include foot %>
