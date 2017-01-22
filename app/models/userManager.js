@@ -135,9 +135,23 @@ module.exports = {
             profilepic = "'" + profilepic + "'";
         }
         var requete = "Update users SET u_email='" + email + "', u_nom=" + nom + ", u_prenom=" + prenom + ", u_tel=" + tel +
-        ", u_website=" + website + ", u_sexe=" + sexe + ", u_birthdate=" + birthdate + ", u_ville=" + ville +
-        ", u_taille=" + taille + ", u_couleur=" + couleur + ", u_profilepic=" + profilepic +
-        " WHERE u_id=" + id;
+            ", u_website=" + website + ", u_sexe=" + sexe + ", u_birthdate=" + birthdate + ", u_ville=" + ville +
+            ", u_taille=" + taille + ", u_couleur=" + couleur + ", u_profilepic=" + profilepic +
+            " WHERE u_id=" + id;
+        var res = global.connection.query(requete,
+            function(err, rows) {
+                if (!err) {
+                    callback(true);
+                } else {
+                    logger.info('Une erreur est survenue lors de la requete: ', requete);
+                    logger.info('ERREUR : ', err);
+                    callback(err);
+                }
+            });
+    },
+    savePaint: function(id, drawingCommands, picture, callback) {
+        var requete = "INSERT INTO drawings (`d_commandes`,`d_image`,`d_fk_u_id`)" +
+            " VALUES('" + drawingCommands + "','" + picture + "', " + id + ")";
         var res = global.connection.query(requete,
             function(err, rows) {
                 if (!err) {

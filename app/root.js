@@ -164,11 +164,57 @@ root.post('/editProfile', function(req, res) {
                         error: "une erreur s'est produite"
                     });
             });
-        } else
-            res.render('editProfile', {
-                error: "une erreur s'est produite"
-            });
+        } else {
+            if (session.open) {
+                res.render('editProfile', {
+                    id: session.id,
+                    email: session.email,
+                    nom: session.nom,
+                    prenom: session.prenom,
+                    sexe: session.sexe,
+                    tel: session.tel,
+                    birthdate: session.birthdate,
+                    website: session.website,
+                    ville: session.ville,
+                    taille: session.taille,
+                    couleur: session.couleur,
+                    profilepic: session.profilepic,
+                    error: "une erreur s'est produite"
+                });
+            } else {
+                res.redirect('/login');
+            }
+        }
     });
+});
+
+root.get('/paint', function(req, res) {
+    if (session.open) {
+        res.render('paint', {
+            id: session.id,
+            couleur: session.couleur
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
+
+root.post('/paint', function(req, res) {
+    if (session.open) {
+      userManager.savePaint(session.id, req.body.drawingCommands, req.body.picure, function(clb) {
+          if (clb == true) {
+              logger.info("--sauvegarde de la painture--");
+              res.redirect('/profile');
+          } else
+              res.render('paint', {
+                  id: session.id,
+                  couleur: session.couleur,
+                  error: "une erreur s'est produite"
+                });
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
 
 root.get('/logout', function(req, res) {

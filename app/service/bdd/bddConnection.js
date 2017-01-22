@@ -21,7 +21,7 @@ con.connect();
 
 con.query('SELECT * from users', function (err, rows, fields) {
     if (!err){
-      if(rows.length>1)
+      if(rows.length>=1)
         logger.info('La requete est excuté sans problème');
       else
         logger.info('ERREUR : la table users est vide !');
