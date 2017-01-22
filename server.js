@@ -5,6 +5,7 @@ var favicon = require('serve-favicon'); // Charge le middleware de favicon
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var path = require('path');
+var CryptoJS = require("crypto-js");
 var app = express();
 
 global.connection = require("./app/service/bdd/bddConnection.js").connection();

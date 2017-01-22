@@ -1,9 +1,10 @@
 'user strict';
 var logger = require('log4js').getLogger('Server');
+var CryptoJS = require("crypto-js");
 
 module.exports = {
     login: function(login, pwd, callback) {
-        var res = global.connection.query("Select * from users where u_email='" + login + "' and u_password='" + pwd + "'", function(err, rows) {
+        var res = global.connection.query("Select * from users where u_email='" + login + "' and u_password='" + CryptoJS.SHA256(pwd) + "'", function(err, rows) {
             if (!err) {
                 callback(rows.length == 1, rows[0]);
             } else {
@@ -62,7 +63,7 @@ module.exports = {
             profilepic = "'" + profilepic + "'";
         }
         var res = global.connection.query("INSERT INTO users (u_email, u_password, u_nom, u_prenom, u_tel, u_website, u_sexe, u_birthdate, u_ville, u_taille, u_couleur, u_profilepic) " +
-            " VALUES('" + email + "','" + password + "'," + nom + "," + prenom + "," + tel + "," + website + "," + sexe + "," + birthdate + "," + ville + "," + taille + "," + couleur + "," + profilepic + ")",
+            " VALUES('" + email + "','" + CryptoJS.SHA256(password) + "'," + nom + "," + prenom + "," + tel + "," + website + "," + sexe + "," + birthdate + "," + ville + "," + taille + "," + couleur + "," + profilepic + ")",
             function(err) {
                 if (!err) {
                     callback(true);
