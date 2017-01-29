@@ -81,11 +81,38 @@
         </li>
         <li>
             <label for="profilepicfile">Photo de profil:</label>
-              <input type="file" id="profilepicfile" onchange="loadProfilePic(this)" value="<%=locals.profilepic%>"/>
+              <input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
               <span class="form_hint">Choisissez une image.</span>
               <input type="hidden" name="profilepic" id="profilepic"/>
               <canvas id="preview" width="0" height="0"></canvas>
               <script>
+                  var canvas = document.getElementById("preview");
+                  var ctx = canvas.getContext("2d");
+                  ctx.fillRect(0,0,canvas.width,canvas.height);
+                  canvas.width=0;
+                  canvas.height=0;
+                  var img = document.createElement("img");
+                  img.src = "<%=locals.profilepic%>";
+                  document.getElementById("profilepicfile").setCustomValidity("");
+                  var MAX_WIDTH = 96;
+                  var MAX_HEIGHT = 96;
+                  var width = img.width;
+                  var height = img.height;
+                  var ratio = width/height;
+                  if(width>height){
+                  var width = MAX_WIDTH;
+                  var height = MAX_WIDTH/ratio;
+                  }else {
+                  var width = MAX_HEIGHT*ratio;
+                  var height = MAX_HEIGHT;
+                  }
+
+                  canvas.width = width;
+                  canvas.height = height;
+                  ctx.drawImage(img, 0, 0, width, height);
+                  var dataurl = canvas.toDataURL("image/png");
+                  document.getElementById("profilepic").value = dataurl;
+
                   loadProfilePic = function (e) {
                       var canvas = document.getElementById("preview");
                       var ctx = canvas.getContext("2d");

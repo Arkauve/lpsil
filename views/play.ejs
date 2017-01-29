@@ -1,0 +1,26 @@
+<% var title = 'Play Game' %>
+<% include head %>
+
+<a href="/profile" class="btn btn-success pull-right">home</a>
+<h1 class="display-1">Choisissez un dessin</h1>
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <%if(locals.pictures.length>0) {%>
+            <ul class="list-group">
+                <%var i=1;
+                locals.pictures.forEach(function(picture) { %>
+                <li class="list-group-item col-lg-6"><a href="guessPicture?PictureId=<%= picture.d_id %>&userId=<%= picture.d_fk_u_id %>"><img alt="dessin_<%= picture.d_id %>"  src="<%=picture.d_image%>" class="img-responsive"></a></li>
+                <% i++;
+                }); %>
+            </ul>
+            <% } else {
+                var u="Personne n'a encore dessiné"; %>
+            <%=u%>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<% include foot %>

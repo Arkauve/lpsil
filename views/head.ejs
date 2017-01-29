@@ -30,6 +30,12 @@
         }
     </style>
 
+    <% if(locals.event){ %>
+        <script>
+            var envent = "<%=locals.event%>";
+            alert(envent);
+        </script>
+    <% } %>
 </head>
 
 <body>

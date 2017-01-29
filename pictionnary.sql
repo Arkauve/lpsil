@@ -17,6 +17,8 @@ CREATE TABLE `drawings` (
   `d_id` int(11) NOT NULL AUTO_INCREMENT,
   `d_commandes` blob NOT NULL,
   `d_image` blob NOT NULL,
+  `d_reponse` varchar(65) NOT NULL,
+  `d_dificulte` int(1) DEFAULT 1,
   `d_fk_u_id` int(11) NOT NULL,
   PRIMARY KEY (`d_id`)
 );
@@ -38,9 +40,23 @@ CREATE TABLE `users` (
   `u_sexe` char(1) DEFAULT NULL,
   `u_birthdate` date NOT NULL,
   `u_ville` varchar(65) DEFAULT NULL,
-  `u_taille` smallint(6) DEFAULT NULL,
+  `u_taille` float(6) DEFAULT NULL,
   `u_couleur` char(6) DEFAULT '000000',
   `u_profilepic` blob,
+  `u_score` int(6) DEFAULT 0,
   PRIMARY KEY (`u_id`),
   UNIQUE KEY `email` (`u_email`)
+);
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `winner`
+--
+DROP TABLE IF EXISTS `winner`;
+CREATE TABLE `winner` (
+  `w_d_id` int(11) NOT NULL,
+  `w_u_id` int(11) NOT NULL,
+  PRIMARY KEY (`w_d_id`,`w_u_id`)
 );

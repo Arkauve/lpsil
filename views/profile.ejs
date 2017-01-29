@@ -75,9 +75,10 @@
                     </tbody>
                 </table>
                 <div class="pull-right">
-                  <a href="/paint" class="btn btn-success">Peindre</a>
-                  <a href="/editProfile" class="btn btn-primary">Modifier profile</a>
-                  <a href="/logout" class="btn btn-danger">Disconnect</a>
+                    <a href="/play" class="btn btn-primary">Jouer</a>
+                    <a href="/paint" class="btn btn-success">Peindre</a>
+                    <a href="/editProfile" class="btn btn-primary">Modifier profile</a>
+                    <a href="/logout" class="btn btn-danger">Disconnect</a>
                 </div>
             </div>
         </div>
@@ -87,22 +88,48 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title">Dessins</h3>
+        <h3 class="panel-title">Mes dessins</h3>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-12 ">
               <%if(locals.pictures.length>0) {%>
-                <ul>
+                <ul class="list-group">
                 <%var i=1;
                  locals.pictures.forEach(function(picture) { %>
-                    <li><a href="guess?idPicture=<%= picture.d_id %>">Dessin n°<%= i %></a> - <img alt="dessin_<%= picture.d_id %>"  src="<%=picture.d_image%>" class="img-responsive"></li>
+                    <li class="list-group-item col-lg-6"><a href="guess?idPicture=<%= picture.d_id %>"><img alt="dessin_<%= picture.d_id %>"  src="<%=picture.d_image%>" class="img-responsive"></a></li>
                 <% i++;
                 }); %>
                 </ul>
-              <% } else { %>
-                Vous n avez aucun dessin
+              <% } else { 
+                var u="Vous n'avez aucun dessin"; %>
+                <%=u%>
               <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Mes trouvailles</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <%if(locals.findedPictures.length>0) {%>
+                <ul class="list-group">
+                    <%var i=1;
+                    locals.findedPictures.forEach(function(picture) { %>
+                    <li class="list-group-item col-lg-6"><a href="guess?idPicture=<%= picture.d_id %>"><img alt="dessin_<%= picture.d_id %>"  src="<%=picture.d_image%>" class="img-responsive"></a></li>
+                    <% i++;
+                    }); %>
+                </ul>
+                <% } else {
+                    var u="Vous n'avez trouvé aucun dessin"; %>
+                <%=u%>
+                <% } %>
             </div>
         </div>
     </div>

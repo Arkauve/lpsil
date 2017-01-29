@@ -1,0 +1,102 @@
+<% var title = 'Dessin' %>
+<% include head %>
+
+<script>
+    // la taille et la couleur du pinceau
+    var size, color;
+    // la dernière position du stylo
+    var x0, y0;
+
+    function nbOccurence(str,chaine){
+        var count = 0;
+        var pos = str.indexOf(chaine);
+
+        while ( pos != -1 ) {
+            count++;
+            pos = str.indexOf( chaine,pos + 1 );
+        }
+        return count;
+    }
+
+    // le tableau de commandes de dessin à envoyer au serveur lors de la validation du dessin
+    var drawingCommandsJSON = "<%=locals.commands%>";
+    var count = nbOccurence(drawingCommandsJSON,"&#34;");
+    var commandesString=drawingCommandsJSON.replace("&#34;",'"');
+    for(i=0;i<count;i++){
+        commandesString=commandesString.replace("&#34;",'"');
+    }
+
+    var drawingCommands = JSON.parse(commandesString);
+
+    window.onload = function() {
+        var canvas = document.getElementById('myCanvas');
+        canvas.width = container.offsetWidth;
+        canvas.height = window.innerHeight-container.offsetHeight;
+        var context = canvas.getContext('2d');
+
+        var start = function(c) {
+            // complétez
+            context.beginPath();
+            context.fillStyle = c.color;
+            context.arc(c.x, c.y, c.size, 0, 2 * Math.PI);
+            context.fill();
+            context.closePath();
+        }
+
+        var draw = function(c) {
+            // complétez
+            context.beginPath();
+            context.fillStyle = c.color;
+            context.arc(c.x, c.y, c.size, 0, 2 * Math.PI);
+            context.fill();
+            context.closePath();
+        }
+
+        var clear = function() {
+            // complétez
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // étudiez ce bout de code
+        var i = 0;
+        var iterate = function() {
+            if(i>=drawingCommands.length)
+                return;
+            var c = drawingCommands[i];
+            switch(c.command) {
+                case "start":
+                    start(c);
+                    break;
+                case "draw":
+                    draw(c);
+                    break;
+                case "clear":
+                    clear();
+                    break;
+                default:
+                    console.error("cette commande n'existe pas "+ c.command);
+            }
+            i++;
+            setTimeout(iterate,30);
+        };
+
+        iterate();
+
+    };
+</script>
+<canvas id="myCanvas"></canvas>
+
+
+<form name="tools" class="form-inline well" action="guessPicture" method="post">
+    <input class="hidden" type="text" id="id" name="id" value="<%=locals.id%>"/>
+    <div class="form-group col-lg-3">
+        <label for="">réponse</label>
+        <input class="form-control" type="text" id="reponse" name="reponse" />
+    </div>
+    <div class="form-group">
+        <a class="btn btn-primary" href="play">retour</a>
+        <input id="validate" class="btn btn-success" type="submit" value="Valider" />
+    </div>
+</form>
+
+<% include foot %>
