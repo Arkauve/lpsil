@@ -9,8 +9,6 @@ var dateformat = require('dateformat');
 var express = require('express');
 var root = express();
 
-root.use(passport.initialize());
-
 function setSession(row) {
     session.open = true;
     session.id = row.u_id;
@@ -89,18 +87,6 @@ root.post('/register', function(req, res) {
             });
     });
 });
-
-root.get('/auth/facebook', passport.authenticate('facebook', {
-    scope: 'email'
-}));
-
-// handle the callback after facebook has authenticated the user
-root.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect: '/profile',
-        failureRedirect: '/'
-    })
-);
 
 //redirection vers le profil de l'utilisateur
 root.get('/profile', function(req, res) {
